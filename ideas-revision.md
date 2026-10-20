@@ -3,7 +3,7 @@
 - [x] **Colores:** implementados — cyan (menú), amarillo (temp), verde (éxito), rojo (error) en `src/lib/colors.js`.
 - [] **AGENTS.md:** mantener actualizado este archivo cuando realizamos cambios en el proyecto.
 - [] **Ciudades:** geocoding solo trae 1 resultado; nombres ambiguos pueden fallar.
-- [] **Tests:** no existen; conviene al menos probar storage y las APIs con mocks.
+- [x] **Tests:** implementados — 25 tests pasando. `test/colors.test.js`, `test/data.test.js`, `test/api.test.js` con mocks de fetch y fs temporal.
 - [] **Binario:** compila bien; revisar que `./weather` guarde datos en `~/.config/weather-cli/`.
 - [] **Escalabilidad:** ¿qué tan fácil será expandir con nuevas funcionalidades?
 - [] **Carga:** ¿hay estado de carga en las tareas asíncronas?
