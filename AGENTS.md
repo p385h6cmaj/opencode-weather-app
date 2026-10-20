@@ -1,7 +1,7 @@
 # Weather CLI App
 
 ## Repo state
-- **Skeleton project** — no source code, dependencies, or tooling yet. Only `package.json` and `README.md` exist.
+- **Source code** lives in `src/`. Entry point is `index.js` (stub that requires `./src/index`).
 - Single package, CommonJS (`"type": "commonjs"`).
 - No tests, lint, or formatter configured.
 
