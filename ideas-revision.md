@@ -1,7 +1,7 @@
 # Revisión Weather CLI
 
 - [x] **Colores:** implementados — cyan (menú), amarillo (temp), verde (éxito), rojo (error) en `src/lib/colors.js`.
-- [] **AGENTS.md:** dice que `index.ts` es stub, pero la app ya funciona — hay que actualizarlo.
+- [] **AGENTS.md:** mantener actualizado este archivo cuando realizamos cambios en el proyecto.
 - [] **Ciudades:** geocoding solo trae 1 resultado; nombres ambiguos pueden fallar.
 - [] **Tests:** no existen; conviene al menos probar storage y las APIs con mocks.
 - [] **Binario:** compila bien; revisar que `./weather` guarde datos en `~/.config/weather-cli/`.
