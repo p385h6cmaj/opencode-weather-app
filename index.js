@@ -1,3 +1,4 @@
 #!/usr/bin/env node
 
-require('./src/index');
+const { spawnSync } = require('child_process');
+spawnSync('tsx', ['src/index.ts'], { cwd: __dirname, stdio: 'inherit' });
