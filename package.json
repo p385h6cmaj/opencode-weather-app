@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "tsx src/index.ts",
-    "test": "tsx --test test/*.test.ts"
+    "test": "tsx --test 'tests/**/*.test.ts'",
+    "build": "tsx --test 'tests/**/*.test.ts' && tsx src/index.ts"
   },
   "keywords": [],
   "author": "",
