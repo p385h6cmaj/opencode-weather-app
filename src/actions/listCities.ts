@@ -1,19 +1,19 @@
-import { searchCity } from '../api/geocoding';
-import { fetchWeatherForCity } from '../api/weather';
-import { loadData } from '../storage/citiesStorage';
-import { showError } from '../presentation/output';
+import { searchCity } from '../api/geocoding.js';
+import { fetchWeatherForCity } from '../api/weather.js';
+import { loadData } from '../storage/citiesStorage.js';
+import { showError } from '../presentation/output.js';
 
 interface Dependencies {
-  searchCity?: typeof import('../api/geocoding').searchCity;
-  fetchWeatherForCity?: typeof import('../api/weather').fetchWeatherForCity;
-  loadData?: typeof import('../storage/citiesStorage').loadData;
-  showError?: typeof import('../presentation/output').showError;
+  searchCity?: typeof import('../api/geocoding.js').searchCity;
+  fetchWeatherForCity?: typeof import('../api/weather.js').fetchWeatherForCity;
+  loadData?: typeof import('../storage/citiesStorage.js').loadData;
+  showError?: typeof import('../presentation/output.js').showError;
 }
 
 export async function listCities(deps?: Dependencies): Promise<void> {
   const _searchCity = deps?.searchCity ?? searchCity;
   const _fetchWeatherForCity = deps?.fetchWeatherForCity ?? fetchWeatherForCity;
-  const _loadData = deps?.loadData ?? (await import('../storage/citiesStorage')).loadData;
+  const _loadData = deps?.loadData ?? (await import('../storage/citiesStorage.js')).loadData;
   const _showError = deps?.showError ?? showError;
 
   const data = await _loadData();

@@ -1,25 +1,25 @@
-import { searchCity } from '../api/geocoding';
-import { fetchWeatherForCity } from '../api/weather';
-import { loadData, saveData } from '../storage/citiesStorage';
-import { ask } from '../presentation/input';
-import { showWeather, showError, showLoading } from '../presentation/output';
+import { searchCity } from '../api/geocoding.js';
+import { fetchWeatherForCity } from '../api/weather.js';
+import { loadData, saveData } from '../storage/citiesStorage.js';
+import { ask } from '../presentation/input.js';
+import { showWeather, showError, showLoading } from '../presentation/output.js';
 
 interface Dependencies {
-  ask?: typeof import('../presentation/input').ask;
-  searchCity?: typeof import('../api/geocoding').searchCity;
-  fetchWeatherForCity?: typeof import('../api/weather').fetchWeatherForCity;
-  loadData?: typeof import('../storage/citiesStorage').loadData;
-  saveData?: typeof import('../storage/citiesStorage').saveData;
-  showError?: typeof import('../presentation/output').showError;
-  showLoading?: typeof import('../presentation/output').showLoading;
-  showWeather?: typeof import('../presentation/output').showWeather;
+  ask?: typeof import('../presentation/input.js').ask;
+  searchCity?: typeof import('../api/geocoding.js').searchCity;
+  fetchWeatherForCity?: typeof import('../api/weather.js').fetchWeatherForCity;
+  loadData?: typeof import('../storage/citiesStorage.js').loadData;
+  saveData?: typeof import('../storage/citiesStorage.js').saveData;
+  showError?: typeof import('../presentation/output.js').showError;
+  showLoading?: typeof import('../presentation/output.js').showLoading;
+  showWeather?: typeof import('../presentation/output.js').showWeather;
 }
 
 export async function addCity(deps?: Dependencies): Promise<void> {
   const _ask = deps?.ask ?? ask;
   const _searchCity = deps?.searchCity ?? searchCity;
   const _fetchWeatherForCity = deps?.fetchWeatherForCity ?? fetchWeatherForCity;
-  const _loadData = deps?.loadData ?? (await import('../storage/citiesStorage')).loadData;
+  const _loadData = deps?.loadData ?? (await import('../storage/citiesStorage.js')).loadData;
   const _saveData = deps?.saveData ?? saveData;
   const _showError = deps?.showError ?? showError;
   const _showLoading = deps?.showLoading ?? showLoading;

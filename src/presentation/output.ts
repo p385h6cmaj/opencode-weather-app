@@ -1,7 +1,7 @@
-import { cyan, yellow, green, red, bold } from '../utils/colors';
-import { SEPARATOR } from '../utils/constants';
-import { formatDayName, formatDayDate } from '../utils/format';
-import { WeatherResponse } from '../types/Weather';
+import { cyan, yellow, green, red, bold } from '../utils/colors.js';
+import { SEPARATOR } from '../utils/constants.js';
+import { formatDayName, formatDayDate } from '../utils/format.js';
+import { WeatherResponse } from '../types/Weather.js';
 
 export function showWeather(cityName: string, temperature: number | null, country: string = ''): void {
   console.clear();

@@ -1,5 +1,5 @@
-import { cyan, bold } from '../utils/colors';
-import { SEPARATOR } from '../utils/constants';
+import { cyan, bold } from '../utils/colors.js';
+import { SEPARATOR } from '../utils/constants.js';
 
 export function printMenu(): void {
   console.clear();

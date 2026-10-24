@@ -1,21 +1,21 @@
-import { searchCity } from '../api/geocoding';
-import { getWeather } from '../api/weather';
-import { loadData } from '../storage/citiesStorage';
-import { printForecastTable, showError } from '../presentation/output';
-import { cyan, yellow, bold } from '../utils/colors';
-import { SEPARATOR } from '../utils/constants';
+import { searchCity } from '../api/geocoding.js';
+import { getWeather } from '../api/weather.js';
+import { loadData } from '../storage/citiesStorage.js';
+import { printForecastTable, showError } from '../presentation/output.js';
+import { cyan, yellow, bold } from '../utils/colors.js';
+import { SEPARATOR } from '../utils/constants.js';
 
 interface Dependencies {
-  searchCity?: typeof import('../api/geocoding').searchCity;
-  getWeather?: typeof import('../api/weather').getWeather;
-  loadData?: typeof import('../storage/citiesStorage').loadData;
-  showError?: typeof import('../presentation/output').showError;
+  searchCity?: typeof import('../api/geocoding.js').searchCity;
+  getWeather?: typeof import('../api/weather.js').getWeather;
+  loadData?: typeof import('../storage/citiesStorage.js').loadData;
+  showError?: typeof import('../presentation/output.js').showError;
 }
 
 export async function forecast(deps?: Dependencies): Promise<void> {
   const _searchCity = deps?.searchCity ?? searchCity;
   const _getWeather = deps?.getWeather ?? getWeather;
-  const _loadData = deps?.loadData ?? (await import('../storage/citiesStorage')).loadData;
+  const _loadData = deps?.loadData ?? (await import('../storage/citiesStorage.js')).loadData;
   const _showError = deps?.showError ?? showError;
 
   const data = await _loadData();
@@ -26,7 +26,7 @@ export async function forecast(deps?: Dependencies): Promise<void> {
   }
 
   // Determinar qué ciudades consultar
-  const citiesToQuery = data.cities.length > 0 ? data.cities : [data.defaultCity];
+  const citiesToQuery = data.cities.length > 0 ? data.cities : (data.defaultCity ? [data.defaultCity] : []);
 
   console.clear();
   console.log(cyan(SEPARATOR));

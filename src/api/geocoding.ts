@@ -1,5 +1,5 @@
-import { GEOCODING_API } from '../utils/constants';
-import { City } from '../types/City';
+import { GEOCODING_API } from '../utils/constants.js';
+import { City } from '../types/City.js';
 
 interface GeocodeResult {
   results?: Array<{

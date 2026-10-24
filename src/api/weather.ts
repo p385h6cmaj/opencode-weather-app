@@ -1,6 +1,6 @@
-import { FORECAST_API } from '../utils/constants';
-import { WeatherResponse } from '../types/Weather';
-import { City } from '../types/City';
+import { FORECAST_API } from '../utils/constants.js';
+import { WeatherResponse } from '../types/Weather.js';
+import { City } from '../types/City.js';
 
 export async function getWeather(
   latitude: number,

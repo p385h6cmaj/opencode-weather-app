@@ -1,18 +1,18 @@
-import { loadData, saveData } from '../storage/citiesStorage';
-import { ask } from '../presentation/input';
-import { showError, showSuccess } from '../presentation/output';
+import { loadData, saveData } from '../storage/citiesStorage.js';
+import { ask } from '../presentation/input.js';
+import { showError, showSuccess } from '../presentation/output.js';
 
 interface Dependencies {
-  ask?: typeof import('../presentation/input').ask;
-  loadData?: typeof import('../storage/citiesStorage').loadData;
-  saveData?: typeof import('../storage/citiesStorage').saveData;
-  showError?: typeof import('../presentation/output').showError;
-  showSuccess?: typeof import('../presentation/output').showSuccess;
+  ask?: typeof import('../presentation/input.js').ask;
+  loadData?: typeof import('../storage/citiesStorage.js').loadData;
+  saveData?: typeof import('../storage/citiesStorage.js').saveData;
+  showError?: typeof import('../presentation/output.js').showError;
+  showSuccess?: typeof import('../presentation/output.js').showSuccess;
 }
 
 export async function setDefaultCity(deps?: Dependencies): Promise<void> {
   const _ask = deps?.ask ?? ask;
-  const _loadData = deps?.loadData ?? (await import('../storage/citiesStorage')).loadData;
+  const _loadData = deps?.loadData ?? (await import('../storage/citiesStorage.js')).loadData;
   const _saveData = deps?.saveData ?? saveData;
   const _showError = deps?.showError ?? showError;
   const _showSuccess = deps?.showSuccess ?? showSuccess;
