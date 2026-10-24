@@ -1,0 +1,106 @@
+name: CI - Build & Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Read version from package.json
+        id: version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Version: $VERSION"
+
+      - name: Create tag if it doesn't exist
+        run: |
+          TAG="v${{ steps.version.outputs.version }}"
+          if ! git rev-parse "$TAG" >/dev/null 2>&1; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git tag -a "$TAG" -m "Release $TAG"
+            git push origin "$TAG"
+            echo "Tag $TAG created and pushed."
+          else
+            echo "Tag $TAG already exists. Skipping."
+          fi
+
+      - name: Build TypeScript to JavaScript
+        run: npx tsc --outDir dist-compiled
+
+      - name: Install pkg
+        run: npm install -g pkg
+
+      - name: Build binaries with pkg
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          mkdir -p dist
+
+          # Linux x64
+          pkg dist-compiled/index.js \
+            --target node18-linux-x64 \
+            --output "dist/weather-linux-$VERSION" \
+            --options no-warnings || true
+
+          # macOS ARM64 + x64
+          pkg dist-compiled/index.js \
+            --target node18-macos-arm64,node18-macos-x64 \
+            --output "dist/weather-macos-$VERSION" \
+            --options no-warnings || true
+
+          # Windows x64
+          pkg dist-compiled/index.js \
+            --target node18-win-x64 \
+            --output "dist/weather-windows-$VERSION.exe" \
+            --options no-warnings || true
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Release v${{ steps.version.outputs.version }}
+          body: |
+            ## 🌦️ Weather CLI v${{ steps.version.outputs.version }}
+
+            Binarios compilados con `pkg` para las siguientes plataformas:
+
+            - **Linux** — `weather-linux-${{ steps.version.outputs.version }}` (x64)
+            - **macOS** — `weather-macos-${{ steps.version.outputs.version }}` (ARM64 + x64)
+            - **Windows** — `weather-windows-${{ steps.version.outputs.version }}.exe` (x64)
+
+            ### Uso
+            ```bash
+            ./weather-linux-1.0.0
+            # o en macOS:
+            ./weather-macos-1.0.0
+            # o en Windows:
+            weather-windows-1.0.0.exe
+            ```
+          draft: false
+          prerelease: false
+          files: |
+            dist/weather-linux-*
+            dist/weather-macos-*
+            dist/weather-windows-*
